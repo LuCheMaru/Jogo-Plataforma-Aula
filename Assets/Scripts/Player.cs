@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     private float Horizontal;
     private Rigidbody2D rb;
     private bool isFacingRight = true;
+    public Animator animator;
 
     private void Awake()
     {
@@ -17,7 +18,8 @@ public class Player : MonoBehaviour
     {
         Horizontal = Input.GetAxis("Horizontal");
         Debug.Log(Horizontal);
-        this.rb.velocity = new Vector2(Horizontal * 100f,rb.velocity.y);
+        this.rb.velocity = new Vector2(Horizontal * 8f,rb.velocity.y);
+        animator.SetFloat("speed", Mathf.Abs(Horizontal));
         Flip();
         /*if (Input.GetKey(KeyCode.Space)) {
             Debug.Log("A");
