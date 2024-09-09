@@ -4,22 +4,30 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField]
+    private float Speed = 8f;
     private float Horizontal;
     private Rigidbody2D rb;
     private bool isFacingRight = true;
-    public Animator animator;
+    private Animator animator;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        this.rb = this.GetComponent<Rigidbody2D>();
+        animator = this.GetComponent<Animator>();
     }
     // Update is called once per frame
     void Update()
     {
         Horizontal = Input.GetAxis("Horizontal");
         Debug.Log(Horizontal);
-        this.rb.velocity = new Vector2(Horizontal * 8f,rb.velocity.y);
-        animator.SetFloat("speed", Mathf.Abs(Horizontal));
+        this.rb.velocity = new Vector2(Horizontal * Speed,rb.velocity.y);
+        animator.SetFloat("Speed", Mathf.Abs(Horizontal));
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            this.rb.AddForce(Vector2.up * 20f, ForceMode2D.Impulse);
+        }
+
         Flip();
         /*if (Input.GetKey(KeyCode.Space)) {
             Debug.Log("A");
